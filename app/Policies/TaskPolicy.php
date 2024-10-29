@@ -5,67 +5,85 @@ namespace App\Policies;
 use App\Models\Employee;
 use App\Models\Manager;
 use App\Models\Task;
-
 class TaskPolicy
 {
     /**
-     * Determine whether the Manager can view any models.
+     * Determine whether the user can view any models.
      */
-    public function viewAny(Manager $Manager): bool
+    public function viewAny($user): bool
     {
-        return true;
+        return true; 
     }
 
     /**
-     * Determine whether the Manager can view the model.
+     * Determine whether the user can view the model.
      */
-    public function view(Manager $manager, Task $task): bool
+    public function view($user, Task $task): bool
     {
-       
-        return $manager->tasks()->where('id', $task->id)->exists();
+        if ($user instanceof Manager) {
+            return $user->tasks()->where('id', $task->id)->exists(); 
+        }
+
+        if ($user instanceof Employee) {
+            return $user->tasks()->where('id', $task->id)->exists(); 
+        }
+
+        return false; 
     }
 
     /**
-     * Determine whether the Manager can create models.
+     * Determine whether the user can create models.
      */
-    public function create(Manager $manager): bool
+    public function create($user): bool
     {
-        return true;
+        return $user instanceof Manager; 
     }
 
     /**
-     * Determine whether the Manager can update the model.
+     * Determine whether the user can update the model.
      */
-    public function update(Manager $manager, Task $task): bool
+    public function update($user, Task $task): bool
     {
-       
-        return $manager->tasks()->where('id', $task->id)->exists();
+        if ($user instanceof Manager) {
+            return $user->tasks()->where('id', $task->id)->exists(); 
+        }
+
+        if ($user instanceof Employee) {
+            return $user->tasks()->where('id', $task->id)->exists(); 
+        }
+
+        return false; 
     }
 
     /**
-     * Determine whether the Manager can delete the model.
+     * Determine whether the user can delete the model.
      */
-    public function delete(Manager $manager, Task $task): bool
+    public function delete($user, Task $task): bool
     {
-       
-        return $manager->tasks()->where('id', $task->id)->exists();
+        if ($user instanceof Manager) {
+            return $user->tasks()->where('id', $task->id)->exists(); 
+        }
+
+        if ($user instanceof Employee) {
+            return false; 
+        }
+
+        return false; 
     }
 
     /**
-     * Determine whether the Manager can restore the model.
+     * Determine whether the user can restore the model.
      */
-    public function restore(Manager $manager, Task $task): bool
+    public function restore($user, Task $task): bool
     {
-       
-        return $manager->tasks()->where('id', $task->id)->exists();
+        return $this->delete($user, $task); 
     }
 
     /**
-     * Determine whether the Manager can permanently delete the model.
+     * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(Manager $manager, Task $task): bool
+    public function forceDelete($user, Task $task): bool
     {
-       
-        return $manager->tasks()->where('id', $task->id)->exists();
+        return $this->delete($user, $task); 
     }
 }
