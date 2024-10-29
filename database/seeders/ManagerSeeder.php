@@ -19,14 +19,14 @@ class ManagerSeeder extends Seeder
             'name' => 'John Doe',
             'phone' => '1234567890',
             'email' => 'first_manager@test.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('fJEIBzwnKOPQRfyXgRPQ10jg'),
         ]);
 
         Manager::create([
             'name' => 'Jane Smith',
             'phone' => '0987654321',
             'email' => 'second_manager@test.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('fJEIBzwnKOPQRfyXgRPQ10jg'),
         ]);
     }
 }

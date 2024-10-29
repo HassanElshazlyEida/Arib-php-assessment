@@ -40,4 +40,8 @@ class Manager extends Authenticatable implements FilamentUser,HasName
     public function employees(){
         return $this->hasMany(Employee::class);
     }
+    
+    public function tasks(){
+        return $this->hasMany(Task::class);
+    }
 }

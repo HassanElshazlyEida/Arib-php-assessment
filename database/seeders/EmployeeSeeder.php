@@ -8,6 +8,7 @@ use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeSeeder extends Seeder
 {
@@ -20,7 +21,7 @@ class EmployeeSeeder extends Seeder
 
         $managers = Manager::all();
         $employees = [];
-        $password = Hash::make('password', ['rounds' => 4]); 
+        $password = Hash::make('fJEIBzwnKOPQRfyXgRPQ10jg', ['rounds' => 4]); 
 
         foreach (range(1, 50) as $index) {
             $employees[] = [
@@ -36,6 +37,6 @@ class EmployeeSeeder extends Seeder
             ];
         }
 
-        Employee::insert($employees);
+        DB::table('employees')->insert($employees);
     }
 }

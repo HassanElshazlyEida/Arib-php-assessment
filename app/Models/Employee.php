@@ -40,6 +40,10 @@ class Employee extends Authenticatable  implements FilamentUser,HasName
     {
         return "{$this->first_name} {$this->last_name}";
     }
+    public function getNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
     public function manager(){
         return $this->belongsTo(Manager::class);
     }
