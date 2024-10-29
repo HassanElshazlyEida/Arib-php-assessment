@@ -11,6 +11,7 @@ use Filament\Http\Middleware\Authenticate;
 use App\Http\Middleware\EmployeeAuthenticate;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use App\Http\Livewire\Auth\LoginInWithPhoneOrEmail;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -26,7 +27,7 @@ class EmployeePanelProvider extends PanelProvider
         return $panel
             ->id('employee')
             ->path('employee')
-            ->login()
+            ->login(LoginInWithPhoneOrEmail::class)
             ->authGuard('employee')
             ->colors([
                 'primary' => Color::Amber,

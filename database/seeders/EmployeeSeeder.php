@@ -21,11 +21,12 @@ class EmployeeSeeder extends Seeder
         $managers = Manager::all();
         $employees = [];
         $password = Hash::make('password', ['rounds' => 4]); 
-        
+
         foreach (range(1, 50) as $index) {
             $employees[] = [
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
+                'phone'=>$faker->phoneNumber,
                 'email' => $faker->unique()->safeEmail,
                 'salary' => $faker->randomFloat(2, 3000, 5000),
                 'image' => $faker->imageUrl(),
