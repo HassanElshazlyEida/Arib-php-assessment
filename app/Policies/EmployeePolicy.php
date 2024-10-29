@@ -3,63 +3,68 @@
 namespace App\Policies;
 
 use App\Models\Employee;
-use Illuminate\Auth\Access\Response;
+use App\Models\Manager;
 
 class EmployeePolicy
 {
     /**
-     * Determine whether the Employee can view any models.
+     * Determine whether the Manager can view any models.
      */
-    public function viewAny(Employee $Employee): bool
+    public function viewAny(Manager $Manager): bool
     {
-       return true;
+        return true;
     }
 
     /**
-     * Determine whether the Employee can view the model.
+     * Determine whether the Manager can view the model.
      */
-    public function view(Employee $Employee, Employee $employee): bool
+    public function view(Manager $manager, Employee $employee): bool
     {
-       return true;
+       
+        return $manager->employees()->where('id', $employee->id)->exists();
     }
 
     /**
-     * Determine whether the Employee can create models.
+     * Determine whether the Manager can create models.
      */
-    public function create(Employee $Employee): bool
+    public function create(Manager $manager): bool
     {
-       return true;
+        return true;
     }
 
     /**
-     * Determine whether the Employee can update the model.
+     * Determine whether the Manager can update the model.
      */
-    public function update(Employee $Employee, Employee $employee): bool
+    public function update(Manager $manager, Employee $employee): bool
     {
-       return true;
+       
+        return $manager->employees()->where('id', $employee->id)->exists();
     }
 
     /**
-     * Determine whether the Employee can delete the model.
+     * Determine whether the Manager can delete the model.
      */
-    public function delete(Employee $Employee, Employee $employee): bool
+    public function delete(Manager $manager, Employee $employee): bool
     {
-       return true;
+       
+        return $manager->employees()->where('id', $employee->id)->exists();
     }
 
     /**
-     * Determine whether the Employee can restore the model.
+     * Determine whether the Manager can restore the model.
      */
-    public function restore(Employee $Employee, Employee $employee): bool
+    public function restore(Manager $manager, Employee $employee): bool
     {
-       return true;
+       
+        return $manager->employees()->where('id', $employee->id)->exists();
     }
 
     /**
-     * Determine whether the Employee can permanently delete the model.
+     * Determine whether the Manager can permanently delete the model.
      */
-    public function forceDelete(Employee $Employee, Employee $employee): bool
+    public function forceDelete(Manager $manager, Employee $employee): bool
     {
-       return true;
+       
+        return $manager->employees()->where('id', $employee->id)->exists();
     }
 }

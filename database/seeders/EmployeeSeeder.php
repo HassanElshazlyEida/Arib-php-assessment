@@ -29,7 +29,6 @@ class EmployeeSeeder extends Seeder
                 'phone'=>$faker->phoneNumber,
                 'email' => $faker->unique()->safeEmail,
                 'salary' => $faker->randomFloat(2, 3000, 5000),
-                'image' => $faker->imageUrl(),
                 'manager_id' => $managers->random()->id,
                 'password' => $password,
                 'created_at' => now(),

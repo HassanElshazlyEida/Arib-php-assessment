@@ -20,7 +20,8 @@ class Employee extends Authenticatable  implements FilamentUser,HasName
         'phone',
         'password',
         'salary',
-        'image'
+        'image',
+        'manager_id'
     ];
 
     protected $hidden = [
@@ -38,6 +39,9 @@ class Employee extends Authenticatable  implements FilamentUser,HasName
     public function getFilamentName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+    public function manager(){
+        return $this->belongsTo(Manager::class);
     }
 }
 

@@ -26,6 +26,7 @@ class ManagerPanelProvider extends PanelProvider
         return $panel
             ->id('manager')
             ->path('manager')
+            ->default()
             ->login(LoginInWithPhoneOrEmail::class)
             ->authGuard('manager')
             ->colors([
