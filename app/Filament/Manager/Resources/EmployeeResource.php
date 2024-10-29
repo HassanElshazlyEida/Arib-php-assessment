@@ -50,6 +50,9 @@ class EmployeeResource extends Resource
                 ->required()
                 ->email()
                 ->maxLength(255),
+            Forms\Components\Select::make('department_id')
+                ->relationship('department','name')
+                ->required(),
             Forms\Components\TextInput::make('password')
                 ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                 ->dehydrated(fn ($state) => filled($state))
@@ -68,6 +71,7 @@ class EmployeeResource extends Resource
                     $query->where('first_name', 'like', "%{$search}%")
                         ->orWhere('last_name', 'like', "%{$search}%");
                 }),
+                Tables\Columns\TextColumn::make('department.name'),
                 Tables\Columns\TextColumn::make('email')->searchable(),
                 Tables\Columns\TextColumn::make('phone')->searchable(), 
                 Tables\Columns\TextColumn::make('salary'),

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use App\Models\Manager;
 use App\Models\Employee;
 use Faker\Factory as Faker;
@@ -20,8 +21,22 @@ class EmployeeSeeder extends Seeder
         $faker = Faker::create();
 
         $managers = Manager::all();
+        $departments = Department::all();
         $employees = [];
         $password = Hash::make('fJEIBzwnKOPQRfyXgRPQ10jg', ['rounds' => 4]); 
+
+
+        Employee::create([
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'phone' => '1234567890',
+            'email' => 'employee@test.com',
+            'manager_id' => $managers->random()->id,
+            'salary' => $faker->randomFloat(2, 3000, 5000),
+            'department_id' => $departments->random()->id,
+            'password' => Hash::make('fJEIBzwnKOPQRfyXgRPQ10jg'),
+        ]);
+
 
         foreach (range(1, 50) as $index) {
             $employees[] = [
@@ -31,6 +46,7 @@ class EmployeeSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail,
                 'salary' => $faker->randomFloat(2, 3000, 5000),
                 'manager_id' => $managers->random()->id,
+                'department_id' => $departments->random()->id,
                 'password' => $password,
                 'created_at' => now(),
                 'updated_at' => now(),

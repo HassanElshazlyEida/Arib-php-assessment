@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Department;
 use App\Models\Manager;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -26,7 +27,11 @@ return new class extends Migration
             ->constrained()
             ->nullOnDelete()
             ->nullOnUpdate();
-
+            $table->foreignIdFor(Department::class)
+            ->nullable()
+            ->constrained()
+            ->nullOnDelete()
+            ->nullOnUpdate();
             $table->timestamps();
         });
     }
